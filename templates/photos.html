@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Wyświetlanie zdjęć</title>
+</head>
+<body>
+    <div id="gallery"></div>
+
+    <script>
+        function displayImages(imageList) {
+            const folderPath = "file:///D:/Prywatne/jul/python_projekty/home_server/static/";
+            const gallery = document.getElementById('gallery');
+
+            imageList.forEach(imageName => {
+                const img = document.createElement('img');
+                img.src = folderPath + imageName;
+                console.log(img.src)
+                img.alt = imageName;
+                img.style.width = '300px'; // Dostosuj szerokość obrazów
+                gallery.appendChild(img);
+            });
+        }
+
+        // Wywołanie funkcji displayImages() przekazując listę zdjęć z Pythona
+        displayImages({{ image_list | tojson }});
+    </script>
+
+<!--<script>-->
+<!--        // Adres folderu z obrazami-->
+<!--        const folderPath = '';-->
+
+<!--        // Lista nazw plików obrazów-->
+<!--        const imageNames = ["/static/prof2.jpg"];-->
+
+<!--        // Wyświetlanie obrazów na stronie-->
+<!--        const gallery = document.getElementById('gallery');-->
+<!--        imageNames.forEach(imageName => {-->
+<!--            const img = document.createElement('img');-->
+<!--            img.src = folderPath + imageName;-->
+<!--            img.alt = imageName;-->
+<!--            img.style.width = '300px'; // Dostosuj szerokość obrazów-->
+<!--            gallery.appendChild(img);-->
+
+<!--        });-->
+<!--    </script>-->
+<!--<img src="/static/prof2.jpg" alt="Cat image" width="20%" height="auto" />-->
+</body>
+</html>

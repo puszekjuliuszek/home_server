@@ -1,0 +1,66 @@
+<form action="{{ url_for('register') }}" method="POST">
+    <label for="username">Nazwa użytkownika:</label>
+    <input type="text" id="username" name="username" required>
+
+    <label for="password">Hasło:</label>
+    <input type="password" id="password" name="password" required>
+
+    <label for="gender">Płeć:</label>
+    <select id="gender" name="gender">
+        <option value="male">Mężczyzna</option>
+        <option value="female">Kobieta</option>
+        <option value="other">Inna</option>
+    </select>
+
+    <label for="birthdate">Data urodzenia:</label>
+    <input type="date" id="birthdate" name="birthdate">
+
+    <label for="is_alive">Czy żyje?</label>
+    <select id="is_alive" name="is_alive">
+        <option value="yes">Tak</option>
+        <option value="no">Nie</option>
+    </select>
+
+    <div id="death-date" style="display: none;">
+        <label for="deathdate">Data śmierci:</label>
+        <input type="date" id="deathdate" name="deathdate">
+    </div>
+
+    <label for="father_id">Ojciec:</label>
+    <select id="father_id" name="father_id">
+        <option value="">Brak</option>
+        {% for user in users %}
+            <option value="{{ user.id }}">{{ user.username }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="mother_id">Matka:</label>
+    <select id="mother_id" name="mother_id">
+        <option value="">Brak</option>
+        {% for user in users %}
+            <option value="{{ user.id }}">{{ user.username }}</option>
+        {% endfor %}
+    </select>
+
+     <label>Wybierz małżonków:</label>
+    <div>
+        {% for user in users %}
+            <input type="checkbox" id="spouse_{{ user.id }}" name="spouse[]" value="{{ user.id }}">
+            <label for="spouse_{{ user.id }}">{{ user.username }}</label>
+        {% endfor %}
+    </div>
+
+    <button type="submit">Zarejestruj</button>
+</form>
+
+<script>
+    // Skrypt obsługujący wyświetlanie pola daty śmierci w zależności od wyboru "Czy żyje?"
+    document.getElementById('is_alive').addEventListener('change', function() {
+        var deathDateField = document.getElementById('death-date');
+        if (this.value === 'no') {
+            deathDateField.style.display = 'block';
+        } else {
+            deathDateField.style.display = 'none';
+        }
+    });
+</script>
